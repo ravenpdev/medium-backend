@@ -1,26 +1,20 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { ArticlesRepository } from './articles.repository';
+import { CreateArticleDto } from './dto/create-article.dto';
 
 @Injectable()
 export class ArticlesService {
-  articles = [
-    {
-      id: 1,
-      title: 'title',
-      body: 'body',
-    },
-  ];
+  constructor(private readonly articlesRepository: ArticlesRepository) {}
 
   async findAll() {
-    return this.articles;
+    return this.articlesRepository.find({});
+  }
+
+  async create(createArticleDto: CreateArticleDto) {
+    return this.articlesRepository.create(createArticleDto);
   }
 
   async findBy(id: number) {
-    const result = this.articles.find((article) => article.id === id);
-
-    if (!result) {
-      throw new NotFoundException('Article not Found');
-    }
-
-    return result;
+    return this.articlesRepository.findOne({ _id: id });
   }
 }

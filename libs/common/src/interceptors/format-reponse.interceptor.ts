@@ -20,7 +20,6 @@ export class FormatResponseInterceptor<T>
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<Response<T>> | Promise<Observable<Response<T>>> {
-    console.log(context.switchToHttp().getResponse());
     return next.handle().pipe(
       map((data) => ({
         statusCode: context.switchToHttp().getResponse().statusCode,

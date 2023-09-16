@@ -6,6 +6,7 @@ import { AUTH_SERVICE, DatabaseModule } from '@app/common';
 import { Article, ArticleSchema } from './models/article.schema';
 import * as Joi from 'joi';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ArticlesRepository } from './articles.repository';
 
 @Module({
   imports: [
@@ -34,6 +35,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ]),
   ],
   controllers: [ArticlesController],
-  providers: [ArticlesService],
+  providers: [ArticlesService, ArticlesRepository],
 })
 export class ArticlesModule {}

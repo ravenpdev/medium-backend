@@ -6,7 +6,7 @@ export class Article extends AbstractDocument {
   @Prop()
   title: string;
 
-  @Prop()
+  @Prop({ required: false })
   slug: string;
 
   @Prop()

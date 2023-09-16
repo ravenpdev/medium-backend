@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AuthModule } from './auth.module';
 import { ConfigService } from '@nestjs/config';
-import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import { Logger } from 'nestjs-pino';
 import { Transport } from '@nestjs/microservices';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AuthModule);
@@ -18,6 +18,10 @@ async function bootstrap() {
     },
   });
 
+  app.enableCors({
+    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    credentials: true,
+  });
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.useLogger(app.get(Logger));

@@ -1,7 +1,7 @@
 import {
-  BadRequestException,
   Injectable,
   UnauthorizedException,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -52,6 +52,6 @@ export class UsersService {
       return;
     }
 
-    throw new BadRequestException('Email already exists.');
+    throw new UnprocessableEntityException('Email already exists.');
   }
 }
